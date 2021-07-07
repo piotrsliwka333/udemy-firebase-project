@@ -1,6 +1,19 @@
-// import React from "react";
-// import * as db from "../firestore";
+import React, { useState, useEffect } from "react";
+import * as db from "../firestore";
 
-function useAuth() {}
+function useAuth() {
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    return db.checkAuth(user => {
+      setLoading(false)
+      setUser(user);
+    });
+
+  },[]);
+
+  return { user, loading };
+}
 
 export default useAuth;
